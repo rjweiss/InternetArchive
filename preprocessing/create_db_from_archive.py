@@ -47,6 +47,7 @@ def files_to_process(data_dir, cc_type):
 def extract_and_insert(current_filename, mongo_collection, archiver, process_logger):
 	m = hashlib.md5()
 	m.update(current_filename)
+
 	try:
 		cursor = mongo_collection.find({"md5": m.hexdigest()}).limit(1)
 	except AttributeError as e: # TODO: This is the wrong error.
@@ -87,12 +88,16 @@ class InternetArchiver(object):
 	def extract(self, infile, mongo_collection):
 		processed = False
 		m = hashlib.md5()
+		shortened_filename = ''.join(infile.split('/')[-1])	
+		#print 'extract(): \t ' + infile
 
 		try:
 			mongo_document = self._process_cc(infile)
 			processed = True
-		except AttributeError as e:
-			self.logger('Processing error {file}'.format(file=infile))
+		except Exception, err:
+			self.logger.exception('Extraction error: {error}'.format(error=err))
+		#except Error as e:
+		#	self.logger.error('Processing error {file}'.format(file=shortened_filename))
 
 		if processed:
 			m.update(mongo_document['filename'])
@@ -111,33 +116,41 @@ class InternetArchiver(object):
 			with open(infile, 'rb') as ccfile:
 				ccdata = ccfile.readlines()
 		except IOError as e:
-			self.logger.error('IOError: {error}'.format(error=e))
-		
+			#self.logger.error('IOError: {error}'.format(error=e))
+			raise IOError('cannot read from {file}'.format(file=infile))
+
 		metadata = self._get_metadata(infile)
 
-		return {
-			'filename':    infile,
-			'channel':     metadata['channel'],
-			'date':        metadata['date'].isoformat(),
-			'time':        metadata['time'].isoformat(),
-			'show':        metadata['show'],
-			'cc_text':     self._get_cc_data(ccdata)
-		}
+		if metadata:
+			return {
+				'filename':    infile,
+				'channel':     metadata['channel'],
+				'date':        metadata['date'].isoformat(),
+				'time':        metadata['time'].isoformat(),
+				'show':        metadata['show'],
+				'cc_text':     self._get_cc_data(ccdata)
+			}
+		else:
+			raise RuntimeException('no metadata produced for {file}'.format(file=infile))
         
 	# Takes in a filename string from the IArchive and returns metadata (Channel, Date, Show)
-	def _get_metadata(self, filename_string):
-		file_pattern = re.compile(r"rawdata\/([A-Z0-9]+)_(\d+)_(\d+)_(.+)\.cc5\.txt$")
+	def _get_metadata(self, filename_path_string):
+		file_pattern = re.compile(r"([A-Z0-9]+)_(\d+)_(\d+)(_(.+))?\.cc5\.txt")
+		filename_string = ''.join(filename_path_string.split('/')[-1]).strip()
 		match = re.search(file_pattern, filename_string)
 		date = datetime.strptime(match.group(2), "%Y%m%d") #date
 		time = datetime.strptime(match.group(3), "%H%M%S") #time, NOT ACCURATE?
+	
+		if match.group(5):
+			show = str(match.group(5))
+		else:
+			show = 'None'
 
 		return {
 			'channel':  match.group(1),
-			'date':     date.date(),
-			'time':     time.time(),
 			'date':     date,
 			'time':     time,
-			'show':     str(match.group(4))		
+			'show':			show 
 		}
 
 	# Takes in the list of closed caption data and returns a single flattened string
@@ -153,7 +166,6 @@ class InternetArchiver(object):
 			cc_line = match.group(5).replace('"', '``')
 		except AttributeError as e:
 			self.logger.error('regex processing error: {inputline} ({error})'.format(inputline=inputline, error=e))
-#			sys.stderr.write('regex processing error: +' + inputline + str(e))
 		
 		return cc_line
 
@@ -197,6 +209,7 @@ def main(data_dir, mdb, mc, logfile):
             
 	for f in files:
 		queue.put(f)        
+		#break
         
 	for i in range(0, num_procs):
 		queue.put(None)
