@@ -7,49 +7,62 @@ TODO: Pretty janky...
 import os, logging, sys
 import gensim
 from gensim import corpora, models, utils
-from gensim.parsing.preprocessing import STOPWORDS as gensim_stopwords
+from gensim.corpora.dictionary import Dictionary
+from gensim.corpora.mmcorpus import MmCorpus 
+from gensim.parsing.preprocessing import preprocess_string, strip_punctuation, strip_multiple_whitespaces, strip_numeric, remove_stopwords, strip_short, STOPWORDS
 #from nltk.corpus import stopwords as nltk_stopwords
 
-class Corpus(object):
+class ArchiveCorpus(corpora.TextCorpus):
 
-	def __init__(self, datafile):
+	def __init__(self, datafile, preprocess=[], dictionary=None):
 		self.datafile = datafile
-		#self.STOPWORDS = frozenset(gensim_stopwords.union(nltk_stopwords.words('english')))
-		self.STOPWORDS = gensim_stopwords	
-		self.dictionary = corpora.Dictionary(line.lower().split() for line in utils.smart_open(self.datafile))
-		stop_ids = [self.dictionary.token2id[stopword] for stopword in self.STOPWORDS if stopword in self.dictionary.token2id]
-		once_ids = [tokenid for tokenid, docfreq in self.dictionary.dfs.iteritems() if docfreq == 1]
-		self.dictionary.filter_extremes( no_below=5, no_above=0.5, keep_n=1000000) # Tweak this.
-		self.dictionary.filter_tokens(stop_ids + once_ids)
-		self.dictionary.compactify()
+		self.preprocess = preprocess
+		self.metadata = None
 
-	def __iter__(self):
-		# TODO: Modify this to read from MongoDB?
-		for line in utils.smart_open(self.datafile):			
-			yield self.dictionary.doc2bow(line.lower().split())
+		if dictionary:
+				self.dictionary = dictionary
+		else:
+				self.dictionary = Dictionary()
+				if datafile is not None:
+					self.dictionary.add_documents(self.get_texts())
+					self.dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n=500000)
+
+
+	def get_texts(self):
+		with utils.smart_open(self.datafile) as inputfile:
+			for line in inputfile:
+				for f in self.preprocess:
+					line = f(line)
+				text = list(utils.tokenize(line, deacc=True, lowercase=True))
+				yield text
 
 def main(training_datafile, output_path):	
 	logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
-
-	corpus = Corpus(datafile=training_datafile)
+	logger = logging.getLogger('Archive.gensim')
+	filters = [strip_punctuation, strip_multiple_whitespaces, strip_numeric, remove_stopwords, strip_short]
+	logger.info('Creating Corpus object...')
+	corpus = ArchiveCorpus(datafile=training_datafile, preprocess=filters)
 	filename = ''.join(training_datafile.split('/')[-1])
 
-	if not os.path.exists(os.path.join(output_path)):
+	if not os.path.exists(output_path):
 		os.makedirs(output_path)
 
-	corpora.MmCorpus.serialize(output_path + '/{filename}.mm'.format(filename=filename), corpus)
-	corpus.dictionary.save(output_path + '/{filename}.dict'.format(filename=filename))
-
+	outfile_path = os.path.join(output_path, filename)
+	logger.info('Saving corpus to disk: {}.mm'.format(filename))
+	MmCorpus.serialize('{}.mm'.format(outfile_path), corpus, progress_cnt=1000)
+	logger.info('Saving dictionary to disk: {}.dict'.format(filename))
+	corpus.dictionary.save('{}.dict'.format(outfile_path))
 
 if __name__ == '__main__':
+
 	if sys.argv < 3:
 		sys.exit('Provide path to training data file (1) and output path (2)')
 		
-	filename_path = sys.argv[1]
-	output_path = sys.argv[2]
+	fn_path = os.path.join(sys.argv[1])
+	out_path = os.path.join(sys.argv[2])
 
 	try:
-		os.path.isfile(filename_path) and os.access(filename_path, os.R_OK)
-		main(training_datafile = sys.argv[1], output_path = sys.argv[2])
+		os.path.isfile(fn_path) and os.access(fn_path, os.R_OK)
+		main(training_datafile = fn_path, output_path = out_path) 
 	except IOError as e:
 		sys.exit('({})'.format(e))
