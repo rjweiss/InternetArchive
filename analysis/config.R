@@ -3,9 +3,11 @@
 # There are also variables that require setting for establishing which model will be run.
 # Author: Rebecca Weiss
 
+# Clear workspace
 rm(list=ls(all=T))
 gc()
 
+# Define global constants
 COVERAGE_START    = 20110511 # so that we get Colbert and Jon Stewart
 COVERAGE_END      = 20140325
 NUM_TOPICS        = 40
@@ -20,11 +22,14 @@ DOC_TOPICS_FILE   = paste(DATA_DIR, 'gensim-update1x5k-thresh0.2-subset20k-k40.m
 LABELS_FILE       = paste(DATA_DIR, 'labels40.csv', sep='')
 METADATA_FILE     = paste(DATA_DIR, 'subset_meta.csv', sep='')
 
+BYCHANNEL_RDATA   = paste(TOPICS_DATA_DIR, 'bychannel.RData', sep='')
+BYSHOW_RDATA      = paste(TOPICS_DATA_DIR, 'byshow.RData', sep='')
 DAILY_RDATA       = paste(TOPICS_DATA_DIR, 'daily.RData', sep='')
 WEEKLY_RDATA      = paste(TOPICS_DATA_DIR, 'weekly.RData', sep='')
 MONTHLY_RDATA     = paste(TOPICS_DATA_DIR, 'monthly.RData', sep='')
 DAY_OF_WEEK_RDATA = paste(TOPICS_DATA_DIR, 'wday.RData', sep='')
 
+# Initialize project and load required libraries
 setwd(WORKING_DIR)
 dir.create(file.path(OUTPUT_DIR), showWarnings = FALSE)
 dir.create(file.path(TOPICS_OUTPUT_DIR), showWarnings = FALSE)

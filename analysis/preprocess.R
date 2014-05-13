@@ -27,15 +27,9 @@ coverage_dates_shows = full_data %.%
 
 # Filter out the channels/shows that don't have complete coverage over the time period COVERAGE_START - COVERAGE_END
 # If the earliest broadcast is after COVERAGE_START or if the latest broadcast is before COVERAGE_END, don't include the channel/show
-# XXX This should probably be show-level, not channel-level
-
 start = ymd(COVERAGE_START)
 end = ymd(COVERAGE_END)
 valid_dates = start %--% end
-#valid_channels = filter(coverage_dates_channel, !(start %within% valid_dates))
-#valid_channels = filter(valid_channels, end %within% valid_dates)
-#filtered_data_channel = filter(data_meta, channel %in% valid_channels$channel)
-
 valid_shows = filter(coverage_dates_shows, !(start %within% valid_dates))
 valid_shows = filter(valid_shows, end %within% valid_dates)
 filtered_data = filter(full_data, show %in% valid_shows$show)
@@ -55,46 +49,37 @@ filtered_data = filter(filtered_data, show %in% valid_shownames)
 filtered_data$show = factor(filtered_data$show)
 filtered_data$channel = factor(filtered_data$channel)
 
-##
-# DAILY DATA
-## 
 
-# Reshape data
+# DAILY DATA
 melted_data_daily = melt(filtered_data, id.vars=c('X_id', 'channel', 'date', 'show'))
 melted_data_daily$value = as.numeric(melted_data_daily$value)
 save(melted_data_daily, file=DAILY_RDATA)
 
+# AGGREGATE DATA
+melted_data_bychannel = melted_data_daily %.% dplyr::group_by(channel, variable) %.% dplyr::summarise(mean = mean(value, na.rm = T))
+melted_data_byshow = melted_data_daily %.% dplyr::group_by(show, variable) %.% dplyr::summarise(mean = mean(value, na.rm = T))
+save(melted_data_bychannel, file=BYCHANNEL_RDATA)
+save(melted_data_byshow, file=BYSHOW_RDATA)
 
-##
 # WEEKLY DATA
-## 
-
 filtered_data$week = round((filtered_data$date - min(filtered_data$date)) / eweeks(1))
 melted_data_weekly = melt(filtered_data, id.vars=c('X_id', 'channel', 'week', 'show'))
 melted_data_weekly = filter(melted_data_weekly, variable == 'date')
 melted_data_weekly$value = as.numeric(melted_data_weekly$value)
 save(melted_data_weekly, file=WEEKLY_RDATA)
 
-##
 # DAY OF WEEK DATA
-##
-
 filtered_data$wday = wday(filtered_data$date)
 melted_data_wday = melt(filtered_data, id.vars=c('X_id', 'channel', 'wday', 'show'))
 melted_data_wday = filter(melted_data_weekly, variable %in% c('week','date'))
 save(melted_data_wday, file=DAY_OF_WEEK_RDATA)
 
-##
 # TIME OF DAY DATA
-##
-
 # XXX Need to include time in metadata
 
-##
 # Cleaning up workspace
-##
-
 rm('coverage_dates_channel', 'coverage_dates_shows','end','filtered_data','full_data',
-   'labels','melted_data_daily','melted_data_wday','melted_data_weekly','meta','raw_data',
-   'show','show_keys','shows','start','valid_dates','valid_shownames','valid_shows')
+   'labels','melted_data_bychannel', 'melted_data_byshow', 'melted_data_daily','melted_data_wday',
+   'melted_data_weekly','meta','raw_data', 'show','show_keys','shows','start','valid_dates',
+   'valid_shownames','valid_shows')
 gc()
