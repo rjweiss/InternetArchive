@@ -12,10 +12,12 @@ def load_data(dict_path, corpus_path):
 	corpus = corpora.MmCorpus(corpus_path)
 	return dictionary, corpus
 
-def create_model(dictionary, corpus, num_topics):
+def create_model(dictionary, corpus, logger, model_path, num_topics):
 	# assume corpus is a bag of words for now...need to try against tfidf
 	model = models.LdaModel(corpus, id2word=dictionary, alpha='auto', eval_every=10, chunksize=5000, num_topics=num_topics)
-	return model
+	logger.info('Saving model to disk: {}'.format(model_path))
+	model.save(model_path)
+	return True
 
 def get_topic_mixtures(model, corpus, model_path, num_topics):
 	lda_corpus = model[corpus]
@@ -37,10 +39,10 @@ def main(dict_path, corpus_path, model_path, num_topics):
 	logger = logging.getLogger('Archive.LDA')
 	dictionary, corpus = load_data(dict_path, corpus_path)
 	logger.info('Initiate training')
-	model = create_model(dictionary, corpus, num_topics)
-	logger.info('Saving model to disk: {}'.format(model_path))
-	model.save(model_path)
-	get_topic_mixtures(model, corpus, model_path)
+	model_created = create_model(dictionary, corpus, logger, model_path, num_topics)
+	#logger.info('Saving model to disk: {}'.format(model_path))
+	#model.save(model_path)
+	get_topic_mixtures(model, corpus, model_path, num_topics)
 
 if __name__ == '__main__':
 	if sys.argv < 5:
