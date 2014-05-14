@@ -22,12 +22,16 @@ DOC_TOPICS_FILE   = paste(DATA_DIR, 'gensim-update1x5k-thresh0.2-subset20k-k40.m
 LABELS_FILE       = paste(DATA_DIR, 'labels40.csv', sep='')
 METADATA_FILE     = paste(DATA_DIR, 'subset_meta.csv', sep='')
 
-BYCHANNEL_RDATA   = paste(TOPICS_DATA_DIR, 'bychannel.RData', sep='')
-BYSHOW_RDATA      = paste(TOPICS_DATA_DIR, 'byshow.RData', sep='')
-DAILY_RDATA       = paste(TOPICS_DATA_DIR, 'daily.RData', sep='')
-WEEKLY_RDATA      = paste(TOPICS_DATA_DIR, 'weekly.RData', sep='')
-MONTHLY_RDATA     = paste(TOPICS_DATA_DIR, 'monthly.RData', sep='')
-DAY_OF_WEEK_RDATA = paste(TOPICS_DATA_DIR, 'wday.RData', sep='')
+BYCHANNEL_RDATA             = paste(TOPICS_DATA_DIR, 'bychannel.RData', sep='')
+BYSHOW_RDATA                = paste(TOPICS_DATA_DIR, 'byshow.RData', sep='')
+BYCHANNEL_DAILY_RDATA       = paste(TOPICS_DATA_DIR, 'bychannel_daily.RData', sep='')
+BYSHOW_DAILY_RDATA          = paste(TOPICS_DATA_DIR, 'byshow_daily.RData', sep='')
+BYCHANNEL_WEEKLY_RDATA      = paste(TOPICS_DATA_DIR, 'bychannel_weekly.RData', sep='')
+BYSHOW_WEEKLY_RDATA         = paste(TOPICS_DATA_DIR, 'byshow_weekly.RData', sep='')
+BYCHANNEL_MONTHLY_RDATA     = paste(TOPICS_DATA_DIR, 'bychannel_monthly.RData', sep='')
+BYSHOW_MONTHLY_RDATA        = paste(TOPICS_DATA_DIR, 'byshow_monthly.RData', sep='')
+BYCHANNEL_DAY_OF_WEEK_RDATA = paste(TOPICS_DATA_DIR, 'bychannel_wday.RData', sep='')
+BYSHOW_DAY_OF_WEEK_RDATA    = paste(TOPICS_DATA_DIR, 'byshow_wday.RData', sep='')
 
 # Initialize project and load required libraries
 setwd(WORKING_DIR)
@@ -36,4 +40,5 @@ dir.create(file.path(TOPICS_OUTPUT_DIR), showWarnings = FALSE)
 dir.create(file.path(TOPICS_DATA_DIR), showWarnings = FALSE)
 packages = c('dplyr','plyr','ggplot2','lubridate', 'reshape2', 'stringr')
 sapply(packages, require, character.only=T)
+MEDIA_NAMES = read.csv(paste(WORKING_DIR, "docs/source_data.csv", sep='')) # XXX This should be taken care of in config.R
 rm(packages)

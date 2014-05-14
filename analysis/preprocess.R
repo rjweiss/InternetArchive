@@ -8,12 +8,12 @@
 # Author: Rebecca Weiss
 
 # Read in data
-raw_data = read.csv(DOC_TOPICS_FILE, header=T)
+raw_data = as.data.frame(data.table::fread(DOC_TOPICS_FILE, header=T))
 raw_data = raw_data[-1,] # XXX Remove the first document, because it's actually a mistake
 labels = read.csv(LABELS_FILE, header=T)
-meta = read.csv(METADATA_FILE, header=T)
+meta = as.data.frame(data.table::fread(METADATA_FILE, header=T))
 meta$date = ymd_hms(as.character(meta$date), tz='UTC')
-names(raw_data) = labels$label # XXX This is sloppy
+names(raw_data) = as.character(labels$label) # XXX This is sloppy
 full_data = cbind(meta, raw_data)
 
 # What are the coverage dates for each channel and show?
@@ -49,11 +49,13 @@ filtered_data = filter(filtered_data, show %in% valid_shownames)
 filtered_data$show = factor(filtered_data$show)
 filtered_data$channel = factor(filtered_data$channel)
 
-
 # DAILY DATA
-melted_data_daily = melt(filtered_data, id.vars=c('X_id', 'channel', 'date', 'show'))
+melted_data_daily = melt(filtered_data, id.vars=c('_id', 'channel', 'date', 'show'))
 melted_data_daily$value = as.numeric(melted_data_daily$value)
-save(melted_data_daily, file=DAILY_RDATA)
+melted_data_daily_byshow = melted_data_daily %.% dplyr::group_by(show, date, variable) %.% dplyr::summarise(mean = mean(value, na.rm = T))
+melted_data_daily_bychannel = melted_data_daily %.% dplyr::group_by(channel, date, variable) %.% dplyr::summarise(mean = mean(value, na.rm = T))
+save(melted_data_daily_byshow, file=BYSHOW_DAILY_RDATA)
+save(melted_data_daily_bychannel, file=BYCHANNEL_DAILY_RDATA)
 
 # AGGREGATE DATA
 melted_data_bychannel = melted_data_daily %.% dplyr::group_by(channel, variable) %.% dplyr::summarise(mean = mean(value, na.rm = T))
@@ -63,23 +65,32 @@ save(melted_data_byshow, file=BYSHOW_RDATA)
 
 # WEEKLY DATA
 filtered_data$week = round((filtered_data$date - min(filtered_data$date)) / eweeks(1))
-melted_data_weekly = melt(filtered_data, id.vars=c('X_id', 'channel', 'week', 'show'))
+melted_data_weekly = melt(filtered_data, id.vars=c('_id', 'channel', 'week', 'show'))
 melted_data_weekly = filter(melted_data_weekly, variable == 'date')
 melted_data_weekly$value = as.numeric(melted_data_weekly$value)
-save(melted_data_weekly, file=WEEKLY_RDATA)
+melted_data_weekly_byshow = melted_data_weekly %.% dplyr::group_by(show, week, variable) %.% dplyr::summarise(mean = mean(value, na.rm = T))
+melted_data_weekly_bychannel = melted_data_weekly %.% dplyr::group_by(channel, week, variable) %.% dplyr::summarise(mean = mean(value, na.rm = T))
+save(melted_data_weekly_bychannel, file=BYCHANNEL_WEEKLY_RDATA)
+save(melted_data_weekly_byshow, file=BYSHOW_WEEKLY_RDATA)
 
 # DAY OF WEEK DATA
 filtered_data$wday = wday(filtered_data$date)
-melted_data_wday = melt(filtered_data, id.vars=c('X_id', 'channel', 'wday', 'show'))
-melted_data_wday = filter(melted_data_weekly, variable %in% c('week','date'))
-save(melted_data_wday, file=DAY_OF_WEEK_RDATA)
+melted_data_wday = melt(filtered_data, id.vars=c('_id', 'channel', 'wday', 'show'))
+melted_data_wday = filter(melted_data_wday, !(variable %in% c('week','date')))
+melted_data_wday$value = as.numeric(melted_data_wday$value)
+melted_data_wday_byshow = melted_data_wday %.% dplyr::group_by(show, wday, variable) %.% dplyr::summarise(mean = mean(value, na.rm = T))
+melted_data_wday_bychannel = melted_data_wday %.% dplyr::group_by(channel, wday, variable) %.% dplyr::summarise(mean = mean(value, na.rm = T))
+save(melted_data_wday_bychannel, file=BYCHANNEL_DAY_OF_WEEK_RDATA)
+save(melted_data_wday_byshow, file=BYSHOW_DAY_OF_WEEK_RDATA)
+
+# MONTHLY DATA
 
 # TIME OF DAY DATA
 # XXX Need to include time in metadata
 
 # Cleaning up workspace
-rm('coverage_dates_channel', 'coverage_dates_shows','end','filtered_data','full_data',
-   'labels','melted_data_bychannel', 'melted_data_byshow', 'melted_data_daily','melted_data_wday',
-   'melted_data_weekly','meta','raw_data', 'show','show_keys','shows','start','valid_dates',
-   'valid_shownames','valid_shows')
-gc()
+#rm('coverage_dates_channel', 'coverage_dates_shows','end','filtered_data','full_data',
+#   'labels','melted_data_bychannel', 'melted_data_byshow', 'melted_data_daily','melted_data_wday',
+#   'melted_data_weekly','meta','raw_data', 'show','show_keys','shows','start','valid_dates',
+#   'valid_shownames','valid_shows')
+#gc()
