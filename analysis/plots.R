@@ -28,7 +28,8 @@ for (topic in topics) {
     coord_flip() +
     theme_bw() +
     theme(legend.position="none") +
-    theme(axis.text.x = element_text(angle = 90))
+    theme(axis.text.x = element_text(angle = 90)) + 
+    ylim(0, 0.5)
   filename = file.path(paste(TOPICS_OUTPUT_DIR, topic, '_bychannel.pdf', sep=''))
   ggsave(file=filename, fig, height=11) 
 }
