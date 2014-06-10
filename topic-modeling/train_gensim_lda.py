@@ -57,11 +57,11 @@ def main(dict_path, corpus_path, model_path, num_topics):
 	logger = logging.getLogger('Archive.LDA')
 	dictionary, corpus = load_data(dict_path, corpus_path)
 	logger.info('Initiate training')
-	#model = create_model(dictionary, corpus, logger, model_path, num_topics)
-	#logger.info('Saving model to disk: {}'.format(model_path))
-	#model.save(model_path)
+	model = create_model(dictionary, corpus, logger, model_path, num_topics)
+	logger.info('Saving model to disk: {}'.format(model_path))
+	model.save(model_path)
 	model = models.LdaModel.load(model_path)
-	#get_topic_mixtures(model, corpus, model_path, num_topics)
+	get_topic_mixtures(model, corpus, model_path, num_topics)
 	get_terms_for_topics(model, model_path, num_topics)
 
 if __name__ == '__main__':
