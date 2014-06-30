@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Word Intrusion Task</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+    <script src="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>    
+
+    <style>
+        /* Matching Amazon MTurk page style */
+        body {
+            color: #666666;
+        }
+
+        p {
+            color: #000000;
+            font: 17px/1.5em Verdana, Helvetica, Arial, sans-serif;
+            margin-bottom: 12px;
+        }
+
+        li {
+            font: 14px Verdana, Helvetica, Arial, sans-serif;
+            color: #525252;
+            margin-top: 6px;
+            margin-bottom: 6px;
+            font-weight: light;
+        }
+
+        h3 {
+            font-family: Helvetica, Arial, Verdana, sans-serif;
+            color: #307bba;
+            font-size: 18px;
+            font-weight: lighter;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        h1.home {
+            color: #307bba;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 36px;
+            font-weight: lighter;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #307bba;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 30px;
+            font-weight: lighter;
+
+        .ui-button-text {
+            padding: 0 0 0 0 !important;
+        }
+
+        .ui-button {
+            font-size: 15px !important;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Choose the Intruder Word Task</h1>
+<ul>
+    <li><h4>In this study, we want you to choose the word that does not belong to the others.</h4></li>
+    <li>These groups of words were sampled from a collection of news broadcast transcripts. from sources such as CNN, FOX News, MSNBC, ABC, CBS, PBS, Comedy Central, and more.  That means that in addition to Spanish, there are also commercials.
+    <li>We created this data by taking one word from another topic and randomly inserted it into each group.</li>
+    <li>If you do not choose a word for each group as instructed, your submission may be rejected.</li>
+    <li><b>It is important that you click on a word for each group</b>. After you have chosen a word for every question, the submit button will appear.</li>
+    </li>
+    <li>We will be randomly checking the quality of responses before issuing payment, so please try to be consistent with your choices.
+    </li>
+</ul>
+<h3>Can't see the buttons?</h3>
+<ul>
+    <li>You are running on Chrome with high security settings. When prompted with the warning, &quot;This page has insecure content&quot;, please select &quot;Load Anyway&quot;.</li>
+    <li>If you still can't see the buttons, please return the HIT so other workers could work on it.</li>
+</ul>
+<p>&nbsp;</p>
+
+<center><h3>Please click on the word that does not belong with the others:</h3>
+
+<h3><span style="color: rgb(51, 51, 51);">After you've finished, the submit button will appear at the bottom of the page.</span>
+</h3>
+</center>
+
+<p>&nbsp;</p>
+
+<form>
+<table width="800" cellspacing="0" cellpadding="0" border="0" align="center">
+    <tbody>
+    <tr>
+        <td align="center">
+            <div id="form1" align="center">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend><h3>Question 1</h3></legend>
+                    <input type="radio" name="question1" id="word0_q1" value="0">
+                    <label for="word0_q1">${word0_q1}</label>
+                    <input type="radio" name="question1" id="word1_q1" value="1">
+                    <label for="word1_q1">${word1_q1}</label>
+                    <input type="radio" name="question1" id="word2_q1" value="2">
+                    <label for="word2_q1">${word2_q1}</label>
+                    <input type="radio" name="question1" id="word3_q1" value="3">
+                    <label for="word3_q1">${word3_q1}</label>
+                    <input type="radio" name="question1" id="word4_q1" value="4">
+                    <label for="word4_q1">${word4_q1}</label>
+                    <input type="radio" name="question1" id="word5_q1" value="5">
+                    <label for="word5_q1">${word5_q1}</label>
+                </fieldset>
+            </div>        
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">
+            <div id="form2">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend><h3>Question 2</h3></legend>
+                    <input type="radio" name="question2" id="word0_q2" value="0">
+                    <label for="word0_q2">${word0_q2}</label>
+                    <input type="radio" name="question2" id="word1_q2" value="1">
+                    <label for="word1_q2">${word1_q2}</label>
+                    <input type="radio" name="question2" id="word2_q2" value="2">
+                    <label for="word2_q2">${word2_q2}</label>
+                    <input type="radio" name="question2" id="word3_q2" value="3">
+                    <label for="word3_q2">${word3_q2}</label>
+                    <input type="radio" name="question2" id="word4_q2" value="4">
+                    <label for="word4_q2">${word4_q2}</label>
+                    <input type="radio" name="question2" id="word5_q2" value="5">
+                    <label for="word5_q2">${word5_q2}</label>
+                </fieldset>
+            </div>        
+        </td>
+    </tr>
+     
+    <tr>
+        <td>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">
+            <div id="form3">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend><h3>Question 3</h3></legend>
+                    <input type="radio" name="question3" id="word0_q3" value="0">
+                    <label for="word0_q3">${word0_q3}</label>
+                    <input type="radio" name="question3" id="word1_q3" value="1">
+                    <label for="word1_q3">${word1_q3}</label>
+                    <input type="radio" name="question3" id="word2_q3" value="2">
+                    <label for="word2_q3">${word2_q3}</label>
+                    <input type="radio" name="question3" id="word3_q3" value="3">
+                    <label for="word3_q3">${word3_q3}</label>
+                    <input type="radio" name="question3" id="word4_q3" value="4">
+                    <label for="word4_q3">${word4_q3}</label>
+                    <input type="radio" name="question3" id="word5_q3" value="5">
+                    <label for="word5_q3">${word5_q3}</label>
+                </fieldset>
+            </div>        
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">
+            <div id="form4">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend><h3>Question 4</h3></legend>
+                    <input type="radio" name="question4" id="word0_q4" value="0">
+                    <label for="word0_q4">${word0_q4}</label>
+                    <input type="radio" name="question4" id="word1_q4" value="1">
+                    <label for="word1_q4">${word1_q4}</label>
+                    <input type="radio" name="question4" id="word2_q4" value="2">
+                    <label for="word2_q4">${word2_q4}</label>
+                    <input type="radio" name="question4" id="word3_q4" value="3">
+                    <label for="word3_q4">${word3_q4}</label>
+                    <input type="radio" name="question4" id="word4_q4" value="4">
+                    <label for="word4_q4">${word4_q4}</label>
+                    <input type="radio" name="question4" id="word5_q4" value="5">
+                    <label for="word5_q4">${word5_q4}</label>
+                </fieldset>
+            </div>        
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">
+            <div id="form5">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend><h3>Question 5</h3></legend>
+                    <input type="radio" name="question5" id="word0_q5" value="0">
+                    <label for="word0_q5">${word0_q5}</label>
+                    <input type="radio" name="question5" id="word1_q5" value="1">
+                    <label for="word1_q5">${word1_q5}</label>
+                    <input type="radio" name="question5" id="word2_q5" value="2">
+                    <label for="word2_q5">${word2_q5}</label>
+                    <input type="radio" name="question5" id="word3_q5" value="3">
+                    <label for="word3_q5">${word3_q5}</label>
+                    <input type="radio" name="question5" id="word4_q5" value="4">
+                    <label for="word4_q5">${word4_q5}</label>
+                    <input type="radio" name="question5" id="word5_q5" value="5">
+                    <label for="word5_q5">${word5_q5}</label>
+                </fieldset>
+            </div>        
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+<table width="700" cellspacing="0" cellpadding="0" border="0" align="center">
+    <tbody>
+        <tr>
+            <td>
+            <p>If you have any questions or confusion about this task, feel free to leave a comment here.  We appreciate your input!</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p><textarea name="comment" cols="50" rows="4"></textarea></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+            <p align="center">The Submit button at the bottom of the page is currently disabled.  It will be enabled again once you have answered all the questions!</p>
+            <p>&nbsp;</p>
+
+    </form>
+<script>
+
+    $(document).ready(function() {
+
+        // $(".ui-input-btn, .btn-primary").hide();
+        $(".ui-input-btn").hide();
+        document.getElementById('submitButton').disabled = true;
+
+        function validateForm() {               
+            var valid = $('input[type=radio]:checked').length == 5;
+            
+            if ($('input[type=radio]:checked').length == 5) {
+                document.getElementById('submitButton').disabled = false;
+                // $(".ui-input-btn").show();
+            }             
+        }
+        
+        $("input[type='radio']").click(function() { 
+            validateForm();
+        })
+
+        $("#submitButton").detach().appendTo("#mturk_form");
+    });
+
+</script></body>
+</html>

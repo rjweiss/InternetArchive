@@ -38,7 +38,7 @@ setwd(WORKING_DIR)
 dir.create(file.path(OUTPUT_DIR), showWarnings = FALSE)
 dir.create(file.path(TOPICS_OUTPUT_DIR), showWarnings = FALSE)
 dir.create(file.path(TOPICS_DATA_DIR), showWarnings = FALSE)
-packages = c('dplyr','plyr','ggplot2','lubridate', 'reshape2', 'stringr')
+packages = c('dplyr','plyr','ggplot2','lubridate', 'reshape2', 'stringr', 'data.table', 'tsne')
 sapply(packages, require, character.only=T)
 MEDIA_NAMES = read.csv(paste(WORKING_DIR, "docs/source_data.csv", sep='')) # XXX This should be taken care of in config.R
 rm(packages)

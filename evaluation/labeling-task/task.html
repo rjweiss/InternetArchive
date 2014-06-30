@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Word group labeling Task</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+    <script src="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+    
+    <style>
+        body {
+            color: #666666;
+        }
+
+        p {
+            color: #000000;
+            font: 17px/1.5em Verdana, Helvetica, Arial, sans-serif;
+            margin-bottom: 12px;
+        }
+
+        li {
+            font: 14px Arial, Verdana, sans-serif;
+            color: #525252;
+            margin-top: 6px;
+            margin-bottom: 6px;
+            font-weight: light;
+        }
+
+        h3 {
+            font-family: "Helvetica", Arial, Verdana, sans-serif;
+            color: #307bba;
+            font-size: 18px;
+            font-weight: lighter;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        h1.home {
+            color: #ff7e00;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 36px;
+            font-weight: lighter;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #307bba;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 30px;
+            font-weight: lighter;
+
+        .ui-button-text {
+            padding: 0 0 0 0 !important;
+        }
+
+        .ui-button {
+            font-size: 15px !important;
+            font-family: "Helvetica", Helvetica, Arial, sans-serif !important;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Labeling Words with News Categories</h1>
+<ul>
+    <li><h4>In this study, we want you to label each of the groups of words.  Your task is to label the news words with the appropriate news category.</h4></li>
+    <li>These groups of words were sampled from a collection of news broadcast transcripts. from sources such as CNN, FOX News, MSNBC, ABC, CBS, PBS, Comedy Central, and more.  That means that in addition to Spanish, there are also commercials.
+    <li><b>It is important that you click on a label for each group.</b> After you have chosen a word for every question, the submit button will appear.</li>
+    <li>If you do not choose a word for each group as instructed, your submission may be rejected.</li> 
+    <li>We will be randomly checking the quality of responses before issuing payment, so please try to be consistent with your choices.
+    </li>
+</ul>
+<h3>Can't see the buttons?</h3>
+<ul>
+    <li>If you cannot see the buttons, it is likely that you are running on Chrome with high security settings. When
+        prompted with the warning, &quot;This page has insecure content&quot;, please select &quot;Load Anyway&quot;.
+    </li>
+    <li>If you still cannot see the buttons, please return the HIT so other workers could work on it.</li>
+</ul>
+<p>&nbsp;</p>
+
+<center><h3>Please choose the most appropriate category for the group of words</h3>
+
+<h3><span style="color: rgb(51, 51, 51);"> When you have finished all the questions, the submit button will appear below.</span>
+</center>
+</h3>
+
+<p>&nbsp;</p>
+
+
+<table width="700" cellspacing="0" cellpadding="0" border="0" align="center">
+    <tbody>
+    <tr>
+        <td align="center"><h3>Question 1</h3></td>
+    </tr>
+    <tr>
+        <td align="center"><h2>${words_q0}</h2</td>
+    </tr>
+    <tr>
+        <td align="center">
+            <form>
+            <div id="form1" class="ui-grid-b" align="center">
+                <div class="ui-block-a">
+                    <label for="words_q0a">Politics</label>
+                    <input type="radio" id="words_q0a" value="politics" name="question1" data-mini="true">
+                    <label for="words_q0b">Economics</label>
+                    <input type="radio" id="words_q0b" value="economics" name="question1" data-mini="true">
+                    <label for="words_q0c">Celebrity/Entertainment</label>
+                    <input type="radio" id="words_q0c" value="celebrity_entertainment" name="question1" data-mini="true">
+                    <label for="words_q0d">Sports</label>
+                    <input type="radio" id="words_q0d" value="sports" name="question1" data-mini="true">
+                    <label for="words_q0e">International</label>
+                    <input type="radio" id="words_q0e" value="international" name="question1" data-mini="true">
+                    <label for="words_q0f">Finance</label>
+                    <input type="radio" id="words_q0f" value="finance" name="question1" data-mini="true">
+
+                </div>
+                <div class="ui-block-b">
+                    <label for="words_q0g">Disaster/Accidents</label>
+                    <input type="radio" id="words_q0g" value="disaster_accident" name="question1" data-mini="true">
+                    <label for="words_q0h">Local/Weather</label>
+                    <input type="radio" id="words_q0h" value="local_weather" name="question1" data-mini="true">
+                    <label for="words_q0i">Scandal</label>
+                    <input type="radio" id="words_q0i" value="scandal" name="question1" data-mini="true">
+                    <label for="words_q0j">Religion</label>
+                    <input type="radio" id="words_q0j" value="religion" name="question1" data-mini="true">
+                    <label for="words_q0k">Health/Medicine</label>
+                    <input type="radio" id="words_q0k" value="health_medicine" name="question1" data-mini="true">
+                    <label for="words_q0l">Science/Technology</label>
+                    <input type="radio" id="words_q0l" value="sci_tech" name="question1" data-mini="true">
+                </div>
+                <div class="ui-block-c">
+                    <label for="words_q0m">Government</label>
+                    <input type="radio" id="words_q0m" value="government" name="question1" data-mini="true">
+                    <label for="words_q0n">Commercials</label>
+                    <input type="radio" id="words_q0n" value="commercials" name="question1" data-mini="true">
+                    <label for="words_q0o">Lifestyle</label>
+                    <input type="radio" id="words_q0o" value="lifestyle" name="question1" data-mini="true">
+                    <label for="words_q0p">Campaign/Elections</label>
+                    <input type="radio" id="words_q0p" value="campaign_election" name="question1" data-mini="true">
+                    <label for="words_q0q">Crime</label>
+                    <input type="radio" id="words_q0q" value="crime" name="question1" data-mini="true">
+                    <label for="words_q0r">U.S. Foreign Affairs</label>
+                    <input type="radio" id="words_q0r" value="us_foreign_affairs" name="question1" data-mini="true">
+
+                </div>
+            </div>
+            </form>   
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center"><h3>Question 2</h3></td>
+    </tr>
+    <tr>
+        <td align="center"><h2>${words_q1}</h2</td>
+    </tr>
+    <tr>
+        <td align="center">
+            <form>
+            <div id="form1" class="ui-grid-b" align="center">
+                <div class="ui-block-a">
+                    <label for="words_q1a">Politics</label>
+                    <input type="radio" id="words_q1a" value="politics" name="question1" data-mini="true">
+                    <label for="words_q1b">Economics</label>
+                    <input type="radio" id="words_q1b" value="economics" name="question1" data-mini="true">
+                    <label for="words_q1c">Celebrity/Entertainment</label>
+                    <input type="radio" id="words_q1c" value="celebrity_entertainment" name="question1" data-mini="true">
+                    <label for="words_q1d">Sports</label>
+                    <input type="radio" id="words_q1d" value="sports" name="question1" data-mini="true">
+                    <label for="words_q1e">International</label>
+                    <input type="radio" id="words_q1e" value="international" name="question1" data-mini="true">
+                    <label for="words_q1f">Finance</label>
+                    <input type="radio" id="words_q1f" value="finance" name="question1" data-mini="true">
+
+                </div>
+                <div class="ui-block-b">
+                    <label for="words_q1g">Disaster/Accidents</label>
+                    <input type="radio" id="words_q1g" value="disaster_accident" name="question1" data-mini="true">
+                    <label for="words_q1h">Local/Weather</label>
+                    <input type="radio" id="words_q1h" value="local_weather" name="question1" data-mini="true">
+                    <label for="words_q1i">Scandal</label>
+                    <input type="radio" id="words_q1i" value="scandal" name="question1" data-mini="true">
+                    <label for="words_q1j">Religion</label>
+                    <input type="radio" id="words_q1j" value="religion" name="question1" data-mini="true">
+                    <label for="words_q1k">Health/Medicine</label>
+                    <input type="radio" id="words_q1k" value="health_medicine" name="question1" data-mini="true">
+                    <label for="words_q1l">Science/Technology</label>
+                    <input type="radio" id="words_q1l" value="sci_tech" name="question1" data-mini="true">
+                </div>
+                <div class="ui-block-c">
+                    <label for="words_q1m">Government</label>
+                    <input type="radio" id="words_q1m" value="government" name="question1" data-mini="true">
+                    <label for="words_q1n">Commercials</label>
+                    <input type="radio" id="words_q1n" value="commercials" name="question1" data-mini="true">
+                    <label for="words_q1o">Lifestyle</label>
+                    <input type="radio" id="words_q1o" value="lifestyle" name="question1" data-mini="true">
+                    <label for="words_q1p">Campaign/Elections</label>
+                    <input type="radio" id="words_q1p" value="campaign_election" name="question1" data-mini="true">
+                    <label for="words_q1q">Crime</label>
+                    <input type="radio" id="words_q1q" value="crime" name="question1" data-mini="true">
+                    <label for="words_q1r">U.S. Foreign Affairs</label>
+                    <input type="radio" id="words_q1r" value="us_foreign_affairs" name="question1" data-mini="true">
+
+                </div>
+            </div>
+            </form>   
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+
+        <tr>
+        <td align="center"><h3>Question 3</h3></td>
+    </tr>
+    <tr>
+        <td align="center"><h2>${words_q2}</h2</td>
+    </tr>
+    <tr>
+        <td align="center">
+            <form>
+            <div id="form1" class="ui-grid-b" align="center">
+                <div class="ui-block-a">
+                    <label for="words_q2a">Politics</label>
+                    <input type="radio" id="words_q2a" value="politics" name="question1" data-mini="true">
+                    <label for="words_q2b">Economics</label>
+                    <input type="radio" id="words_q2b" value="economics" name="question1" data-mini="true">
+                    <label for="words_q2c">Celebrity/Entertainment</label>
+                    <input type="radio" id="words_q2c" value="celebrity_entertainment" name="question1" data-mini="true">
+                    <label for="words_q2d">Sports</label>
+                    <input type="radio" id="words_q2d" value="sports" name="question1" data-mini="true">
+                    <label for="words_q2e">International</label>
+                    <input type="radio" id="words_q2e" value="international" name="question1" data-mini="true">
+                    <label for="words_q2f">Finance</label>
+                    <input type="radio" id="words_q2f" value="finance" name="question1" data-mini="true">
+                </div>
+                <div class="ui-block-b">
+                    <label for="words_q2g">Disaster/Accidents</label>
+                    <input type="radio" id="words_q2g" value="disaster_accident" name="question1" data-mini="true">
+                    <label for="words_q2h">Local/Weather</label>
+                    <input type="radio" id="words_q2h" value="local_weather" name="question1" data-mini="true">
+                    <label for="words_q2i">Scandal</label>
+                    <input type="radio" id="words_q2i" value="scandal" name="question1" data-mini="true">
+                    <label for="words_q2j">Religion</label>
+                    <input type="radio" id="words_q2j" value="religion" name="question1" data-mini="true">
+                    <label for="words_q2k">Health/Medicine</label>
+                    <input type="radio" id="words_q2k" value="health_medicine" name="question1" data-mini="true">
+                    <label for="words_q2l">Science/Technology</label>
+                    <input type="radio" id="words_q2l" value="sci_tech" name="question1" data-mini="true">
+                </div>
+                <div class="ui-block-c">
+                    <label for="words_q2m">Government</label>
+                    <input type="radio" id="words_q2m" value="government" name="question1" data-mini="true">
+                    <label for="words_q2n">Commercials</label>
+                    <input type="radio" id="words_q2n" value="commercials" name="question1" data-mini="true">
+                    <label for="words_q2o">Lifestyle</label>
+                    <input type="radio" id="words_q2o" value="lifestyle" name="question1" data-mini="true">
+                    <label for="words_q2p">Campaign/Elections</label>
+                    <input type="radio" id="words_q2p" value="campaign_election" name="question1" data-mini="true">
+                    <label for="words_q2q">Crime</label>
+                    <input type="radio" id="words_q2q" value="crime" name="question1" data-mini="true">
+                    <label for="words_q2r">U.S. Foreign Affairs</label>
+                    <input type="radio" id="words_q2r" value="us_foreign_affairs" name="question1" data-mini="true">
+                </div>
+            </div>
+            </form>   
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            The Submit button will appear below this text once you have answered all the questions!
+            <button id="submit" style="display:none;">Submit</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<table width="750" cellspacing="0" cellpadding="0" border="0" align="center">
+    <tbody>
+        <tr>
+            <td>
+            <p>If you have any questions or confusion about this task, feel free to leave a comment here.  We appreciate your input!</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <p><textarea name="comment" cols="50" rows="4"></textarea></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script>
+
+    $(document).ready(function() {
+
+        $("#submitButton").hide();
+        $("#form1 input[type='radio']").click(function() { 
+            $("#submit").show();
+        })
+    });
+
+</script>
+</body>
+</html>

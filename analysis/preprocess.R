@@ -36,7 +36,7 @@ filtered_data = filter(full_data, show %in% valid_shows$show)
 
 # Filter down to news shows in News Coverage Index
 # XXX This is pretty not great
-show_keys = c('ABC', 'NBC', 'CBS', 'PBS', 'Fox', 'OReilly', 'Maddow', 'Stewart', 'Colbert', 'Hannity')
+show_keys = c('ABC', 'NBC', 'CBS', 'PBS', 'Fox', 'CNN', 'OReilly', 'Maddow', 'Stewart', 'Colbert', 'Hannity')
 shows = as.character(factor(unique(filtered_data$show)))
 valid_shownames = NULL
 for (show in show_keys) {

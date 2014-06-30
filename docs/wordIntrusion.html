@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Word Intrusion Task</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script>
+        $(function () {
+            $("#radiogroup1").buttonset();
+        });
+
+        $(function () {
+            $("#radiogroup2").buttonset();
+        });
+
+
+        $("#fs").change(function () {
+            //alert($(this).val());
+            $('.changeMe').css("font-family", $(this).val());
+
+        });
+
+        $("#size").change(function () {
+            $('.changeMe').css("font-size", $(this).val() + "px");
+        });
+    </script>
+    <style>
+        body {
+            color: #666666;
+        }
+
+        p {
+            color: #000000;
+            font: 17px/1.5em Verdana, Helvetica, Arial, sans-serif;
+            margin-bottom: 12px;
+        }
+
+        li {
+            font: 14px Arial, Verdana, sans-serif;
+            color: #525252;
+            margin-top: 6px;
+            margin-bottom: 6px;
+            font-weight: light;
+        }
+
+        h3 {
+            font-family: Helvetica, Arial, Verdana, sans-serif;
+            color: #307bba;
+            font-size: 18px;
+            font-weight: lighter;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        h1.home {
+            color: #ff7e00;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 36px;
+            font-weight: lighter;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #307bba;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 30px;
+            font-weight: lighter;
+
+        .myradiolabels {
+            width: 115px;
+            height: 20px;
+        }
+
+        .ui-button-text {
+            padding: 0 0 0 0 !important;
+        }
+
+        .ui-button {
+            font-size: 15px !important;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Word intrusion task</h1>
+<ul>
+    <li>In this study, we want to filter out words that don't belong to a group of words.</li>
+    <li>Your submission may be rejected if you do not choose a word for each group as instructed. It is important that
+        you click on a word for each group.
+    </li>
+    <li>If you cannot see the buttons, it is likely that you are running on Chrome with high security setting. When
+        prompted with the warning, &quot;This page has insecure content&quot;, please select &quot;Load Anyway&quot;.
+    </li>
+    <li>If you still cannot see the buttons, please return the HIT so other workers could work on it.</li>
+    <li>This task is highly subjective. In general, we don't have a right answer in mind, but we will be doing some
+        minimal checking for attentiveness of the examples.
+    </li>
+    <li>If you encounter foreign languages that are not borrowed words, feel free to identify them. If you encounter
+        borrowed foreign phrases such as &quot;cliche&quot; or &quot;en route&quot; that are commonly used in English,
+        please rate them using your best judgement.
+    </li>
+</ul>
+<p>&nbsp;</p>
+
+<h3>Please choose the word that does not belong with the others:</h3>
+
+<h3><span style="color: rgb(51, 51, 51);"> When you have chosen a word that does not match the others, the submit button will appear.</span>
+</h3>
+
+<p>&nbsp;</p>
+
+
+<table width="700" cellspacing="0" cellpadding="0" border="0" align="center">
+    <tbody>
+    <tr>
+        <td align="left"><h3>Question 1</h3></td>
+    </tr>
+    <tr>
+        <td align="center">
+            <form>
+                <div id="radiogroup1">
+                    <input type="radio" id="radio1" name="radio"><label class="myradiolabels"
+                                                                        for="radio1">${word1}</label>
+                    <input type="radio" id="radio2" name="radio"><label class="myradiolabels"
+                                                                        for="radio2">${word2}</label>
+                    <input type="radio" id="radio3" name="radio"><label class="myradiolabels"
+                                                                        for="radio3">${word3}</label>
+                    <input type="radio" id="radio4" name="radio"><label class="myradiolabels"
+                                                                        for="radio4">${word4}</label>
+                    <input type="radio" id="radio5" name="radio"><label class="myradiolabels"
+                                                                        for="radio5">${word5}</label>
+                    <input type="radio" id="radio6" name="radio"><label class="myradiolabels"
+                                                                        for="radio6">${word6}</label>
+                </div>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>&nbsp;</p>
+        </td>
+    </tr>
+
+
+    </tbody>
+
+</table>
+<script>
+
+    $("#radio1").
+    {
+        change: function (event, ui) {
+            $("#radio1 .ui-button").css({
+                "background": "#E0F5FF",
+                "border-color": "#001F29"
+            });
+            displaySubmitButton();
+        }})
+</script>
+</body>
+</html>

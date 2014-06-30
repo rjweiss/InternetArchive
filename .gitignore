@@ -1,0 +1,5 @@
+env/*
+rawdata/*
+output/*
+db/*
+data/*
